@@ -22,11 +22,12 @@
 <script>
 import ProgressionLink from "./progression_link";
 
-const setLocal = (title, value) => {
-  localStorage.setItem(`${title}:value`, value);
+const setLocal = (title, type, value) => {
+  localStorage.setItem(`${title}:${type}:value`, value);
 };
 
-const getLocal = title => localStorage.getItem(`${title}:value`);
+const getLocal = (title, type) =>
+  localStorage.getItem(`${title}:${type}:value`);
 
 export default {
   components: {
@@ -74,14 +75,14 @@ export default {
     setValue(index) {
       this.value = index;
 
-      setLocal(this.name, index);
+      setLocal(this.name, this.title, index);
     },
     changeLink(title, link, type) {
       this.$emit("change-link", title, link, type);
     }
   },
   created() {
-    this.$set(this.$data, "value", Number(getLocal(this.name)));
+    this.$set(this.$data, "value", Number(getLocal(this.name, this.title)));
   }
 };
 </script>
