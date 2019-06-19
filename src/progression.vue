@@ -8,6 +8,7 @@
     </template>
     <progression-item
       title="Phabricator"
+      :name="title"
       type="phab"
       :link="links['phab']"
       :steps="!!links['phab'] ? ['Not Started', 'Diff Out', 'In Revision', 'Ready to Land'] : []"
@@ -15,6 +16,7 @@
     />
     <progression-item
       title="Jira"
+      :name="title"
       type="jira"
       :link="links['jira']"
       :steps="!!links['jira'] ? ['Not Started', 'In Progress', 'Code Complete', 'Ready For Testing'] : []"
@@ -22,6 +24,7 @@
     />
     <progression-item
       title="Tech Spec"
+      :name="title"
       type="ts"
       :link="links['ts']"
       :steps="!!links['ts'] ? ['Not Started', 'Spec Out', 'In Revision', 'In Team Drive'] : []"

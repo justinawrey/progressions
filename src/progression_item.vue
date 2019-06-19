@@ -54,6 +54,10 @@ export default {
     type: {
       type: String,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -70,14 +74,14 @@ export default {
     setValue(index) {
       this.value = index;
 
-      setLocal(this.title, index);
+      setLocal(this.name, index);
     },
     changeLink(title, link, type) {
       this.$emit("change-link", title, link, type);
     }
   },
   created() {
-    this.$set(this.$data, "value", Number(getLocal(this.title)));
+    this.$set(this.$data, "value", Number(getLocal(this.name)));
   }
 };
 </script>
