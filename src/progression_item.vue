@@ -22,6 +22,12 @@
 <script>
 import ProgressionLink from "./progression_link";
 
+const setLocal = (title, value) => {
+  localStorage.setItem(`${title}:value`, value);
+};
+
+const getLocal = title => localStorage.getItem(`${title}:value`);
+
 export default {
   components: {
     ProgressionLink
@@ -58,18 +64,20 @@ export default {
   computed: {
     hasSteps() {
       return this.steps.length > 0;
-    },
-    hasLink() {
-      console.log(!!link);
     }
   },
   methods: {
     setValue(index) {
       this.value = index;
+
+      setLocal(this.title, index);
     },
     changeLink(title, link, type) {
       this.$emit("change-link", title, link, type);
     }
+  },
+  created() {
+    this.$set(this.$data, "value", getLocal(this.title));
   }
 };
 </script>

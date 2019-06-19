@@ -27,6 +27,12 @@ import Progression from "./progression";
 import ProgressionSidebar from "./progression_sidebar";
 import ProgressionAddition from "./progression_addition";
 
+const setLocal = data => {
+  localStorage.setItem("data", JSON.stringify(data));
+};
+
+const getLocal = () => JSON.parse(localStorage.getItem("data"));
+
 export default {
   components: {
     Progression,
@@ -62,6 +68,8 @@ export default {
         duration: 2300,
         message: `<strong>Added Task: </strong>${name}`
       });
+
+      setLocal(this.$data);
     },
     removeProgression(index) {
       const task = this.progressions[index];
@@ -72,6 +80,8 @@ export default {
         duration: 2300,
         message: `<strong>Deleted task: </strong>${task}`
       });
+
+      setLocal(this.$data);
     },
     focusProgression(e) {
       const el = this.$refs[e][0].$el;
@@ -79,14 +89,30 @@ export default {
     },
     changeLink(title, link, type) {
       this.links[title][type] = link;
+
+      let message;
+      if (link) {
+        message = `Changed link for <strong>${type}</strong> to <strong>${link}</strong>`;
+      } else {
+        message = `Removed link for <strong>${type}</strong>`;
+      }
+
       this.$message({
         dangerouslyUseHTMLString: true,
         showClose: true,
         duration: 2300,
         type: "success",
-        message: `Changed link for <strong>${type}</strong> to <strong>${link}</strong>`
+        message
       });
+
+      setLocal(this.$data);
     }
+  },
+  created() {
+    const fromLocal = getLocal();
+
+    this.$set(this.$data, "progressions", fromLocal.progressions);
+    this.$set(this.$data, "links", fromLocal.links);
   }
 };
 </script>
