@@ -77,7 +77,7 @@ export default {
     }
   },
   created() {
-    this.$set(this.$data, "value", getLocal(this.title));
+    this.$set(this.$data, "value", Number(getLocal(this.title)));
   }
 };
 </script>
